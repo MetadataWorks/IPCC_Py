@@ -17,37 +17,42 @@ import db_config
 
 # global variables
 CWD = os.getcwd()
+VERBOSE = True
 __version__ = '20210318_0814'
 
 
 class Hooman:
-    def __init__(self, cmax, dout, text):
-        self.total = cmax
-        self.pbar_length = dout
-        self.curr = 0
+    def __init__(self, status_text, item_count, status_bar_length=32, verbose=True):
+        self.verbose = verbose
+        self.total = item_count
+        self.sbar_length = status_bar_length
+        self.sbar_curr = 0
         self.count = 0
-        self.text = text
+        self.status_text = status_text
 
     def print_progress(self):
+        if not self.verbose:
+            return
         self.count += 1
-        progress = (int(self.count * (self.pbar_length - 1) / self.total) + 1)
-        if progress > self.curr:
+        progress = (int(self.count * (self.sbar_length - 1) / self.total) + 1)
+        if progress > self.sbar_curr:
             pbar = progress * '*'
-            pout = f"\r {self.text} >{pbar.ljust(self.pbar_length, ' ')}<"
+            pout = f"\r {self.status_text} >{pbar.ljust(self.sbar_length, ' ')}<"
             print(pout, end="")
-            self.curr = progress
+            self.sbar_curr = progress
         return
 
 
-def write_header():
-    write_timestamp(f"{__file__}=={__version__}")
-    print(f"python=={platform.python_version()}")
-    print(f"json=={json.__version__}")
-    print(f"mysql.connector=={mysql.connector.__version__}")
-    print(f"pandas=={pd.__version__}")
-    print(f"requests=={requests.__version__}")
-    print(f"{os.path.join(CWD, 'db_config.py')}=={db_config.__version__}@{db_config.__db_id__}")
-    print()
+def write_header(verbose=True):
+    if verbose:
+        write_timestamp(f"{__file__}=={__version__}")
+        print(f"python=={platform.python_version()}")
+        print(f"json=={json.__version__}")
+        print(f"mysql.connector=={mysql.connector.__version__}")
+        print(f"pandas=={pd.__version__}")
+        print(f"requests=={requests.__version__}")
+        print(f"{os.path.join(CWD, 'db_config.py')}=={db_config.__version__}@{db_config.__db_id__}")
+        print()
     return
 
 
@@ -132,9 +137,9 @@ def write_timestamp(out_text='', verbose = True):
 
 
 def main():
-    write_header()
+    write_header(VERBOSE)
 
-    write_timestamp(f"done")
+    write_timestamp(f"done", VERBOSE)
     return
 
 
