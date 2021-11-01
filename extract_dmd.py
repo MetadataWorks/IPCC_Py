@@ -258,7 +258,7 @@ def connect_to_db(db_logon):
 def write_excel(fname, worksheets, idx=False):
     with pd.ExcelWriter(fname) as writer:
         for sheetname, df_worksheet in worksheets.items():
-            df_worksheet.to_excel(writer, sheet_name=sheetname, index=idx)
+            df_worksheet.to_excel(writer, sheet_name=sheetname[:31], index=idx)
     return
 
 
