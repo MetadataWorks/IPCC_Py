@@ -1,5 +1,7 @@
 This script is used to extract details from DKRZ XML files and map them to the MetadataWorks bulk import sheet (for IPCC Schema v1).
 
+**TO EXTRACT XML Records from DKRZ Harvester**
+
 To get the xml files for DKRZ, you need to set up a TomCat instance, and install the JOAI harvester.  Details are here: 
 
 OAI Server for OAI/PMH harvesting (endpoint: http://dm-oai.dkrz.de:8080/oai <http://dm-oai.dkrz.de:8080/oai>):
@@ -20,6 +22,8 @@ Details are:
 Repository Name: Name it what ever you like
 Repository Base URL: http://dm-oai.dkrz.de:8080/oai/provider
 Metadata Format being harvested: 'oai_datacite'
+
+**To map details in DKRZ XML files to MDW bulk import sheet**
 
 Once the XML files are harvest (1 per dataset) this script will populate an excel spreadsheet in the same format as the Bulk importer spreadsheet.
 
